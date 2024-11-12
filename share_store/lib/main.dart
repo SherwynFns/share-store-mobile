@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:share_store/menu.dart';
+import 'package:share_store/screens/menu.dart';
+// TODO: Impor halaman ProductEntryFormPage jika sudah dibuat
+import 'package:share_store/screens/productentry_form.dart';
 
 void main() {
   runApp(const MyApp());
