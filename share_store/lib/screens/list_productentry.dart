@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:share_store/models/product_entry.dart';
+import 'package:share_store/screens/detailproduct.dart';
 import 'package:share_store/widgets/left_drawer.dart';
 
 class ProductEntryPage extends StatefulWidget {
@@ -56,30 +57,69 @@ class _ProductEntryPageState extends State<ProductEntryPage> {
             } else {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
-                itemBuilder: (_, index) => Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${snapshot.data![index].fields.nama}",
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                itemBuilder: (_, index) {
+                  final product = snapshot.data![index].fields;
+
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigasi ke halaman detail produk saat Card ditekan
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailProductPage(product: snapshot.data![index]),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 5, // Tambahkan bayangan untuk efek 3D
+                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.nama,
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.cyan,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Deskripsi: ${product.deskripsi}",
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "Stok: ${product.stok}",
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.teal,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "Harga: Rp${product.harga}",
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text("${snapshot.data![index].fields.deskripsi}"),
-                      const SizedBox(height: 10),
-                      Text("${snapshot.data![index].fields.stok}"),
-                      const SizedBox(height: 10),
-                      Text("${snapshot.data![index].fields.harga}")
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               );
             }
           }

@@ -32,6 +32,9 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
+
+      drawer: const LeftDrawer(),
+
       // TODO: Tambahkan drawer yang sudah dibuat di sini
       body: Form(
         key: _formKey,
@@ -39,6 +42,20 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 10),
+              const Center(
+                child: Text(
+                  "Add New Product", 
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.yellow,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
